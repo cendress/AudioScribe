@@ -19,7 +19,7 @@ struct SessionListView: View {
                     await viewModel.reload(reset: true)
                 }
                 .navigationDestination(for: RecordingSession.self) { session in
-                    SessionDetailView()
+                    SessionDetailView(session: session)
                 }
         }
     }
