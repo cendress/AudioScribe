@@ -54,6 +54,14 @@ struct RecorderView: View {
         .alert(isPresented: .constant(errorText != nil)) {
             Alert(title: Text("Error"), message: Text(errorText ?? ""), dismissButton: .default(Text("OK")))
         }
+        .overlay(alignment: .topLeading) {
+            if viewModel.uiState == .recording {
+                Label("Recording", systemImage: "circle.fill")
+                    .padding(6)
+                    .background(.ultraThinMaterial, in: .capsule)
+            }
+        }
+
     }
     
     private var errorText: String? {
