@@ -14,7 +14,7 @@ final class RecorderViewModel: ObservableObject {
     @Published private(set) var uiState: RecordingUIState = .idle
     @Published var level: Float = 0
     @Published var progress: Double = 0
-
+    
     // Public state for the view (tells the UI what to display)
     enum RecordingUIState: Equatable {
         case idle
@@ -40,9 +40,10 @@ final class RecorderViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .assign(to: &$progress)
         
-        if let engineRecorder = recorder as? AVAudioEngineRecorder {
-            levelSampler = AudioLevelSampler(engine: engineRecorder.engine)
-            levelSampler?.$rms.assign(to: &$level)
+        if let engineRecorder = self.recorder as? AVAudioEngineRecorder {
+            engineRecorder.levelPublisher
+                .receive(on: DispatchQueue.main)
+                .assign(to: &$level)
         }
     }
     
