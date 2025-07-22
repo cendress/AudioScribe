@@ -50,3 +50,5 @@ Reverse flow (pause, stop) is symmetrical.
 ## 6. Future Extensions
 * Network layer (Whisper STT) plugs via new protocol.
 * CloudKit sync layer adds another Infrastructure ring without touching UI.
+
+*Last updated 22 Jul 2025*
