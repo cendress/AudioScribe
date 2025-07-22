@@ -46,6 +46,7 @@
 		9DFA1D642E2FD176006AF1A4 /* CustomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D632E2FD176006AF1A4 /* CustomButtonView.swift */; };
 		9DFA1D662E300254006AF1A4 /* BlinkingDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D652E300254006AF1A4 /* BlinkingDotView.swift */; };
 		9DFA1D682E300B59006AF1A4 /* SegmentRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D672E300B59006AF1A4 /* SegmentRowView.swift */; };
+		9DFA1D6A2E300BF3006AF1A4 /* StatusBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D692E300BF3006AF1A4 /* StatusBadge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		9DFA1D632E2FD176006AF1A4 /* CustomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonView.swift; sourceTree = "<group>"; };
 		9DFA1D652E300254006AF1A4 /* BlinkingDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlinkingDotView.swift; sourceTree = "<group>"; };
 		9DFA1D672E300B59006AF1A4 /* SegmentRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentRowView.swift; sourceTree = "<group>"; };
+		9DFA1D692E300BF3006AF1A4 /* StatusBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBadge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -347,6 +349,7 @@
 			children = (
 				9DD88AFE2E2EC80400169539 /* SessionDetailView.swift */,
 				9DFA1D672E300B59006AF1A4 /* SegmentRowView.swift */,
+				9DFA1D692E300BF3006AF1A4 /* StatusBadge.swift */,
 				9DD88B002E2ED03800169539 /* SessionDetailViewModel.swift */,
 			);
 			path = SessionDetail;
@@ -508,6 +511,7 @@
 				9DB57F772E2D7F8400E96097 /* RecordingCoordinator.swift in Sources */,
 				9DD88AFC2E2EC23500169539 /* RootView.swift in Sources */,
 				9DB57FA72E2EAC9400E96097 /* RecordingSession+Aggregate.swift in Sources */,
+				9DFA1D6A2E300BF3006AF1A4 /* StatusBadge.swift in Sources */,
 				9DB57F5B2E2D50C600E96097 /* DIContainer.swift in Sources */,
 				9DB57F612E2D5DD200E96097 /* DiskSpaceMonitor.swift in Sources */,
 				9DB57F522E2D3C4000E96097 /* AVAudioEngineRecorder.swift in Sources */,

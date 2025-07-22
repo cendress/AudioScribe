@@ -36,67 +36,21 @@ struct SessionDetailView: View {
     private var sessionList: some View {
         List {
             ForEach(viewModel.segments) { segment in
-                VStack(alignment: .leading, spacing: 6) {
-                    HStack {
-                        Text(segment.startedAt, style: .time)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                SegmentRowView(
+                    segment: segment,
+                    onPlay:   { playingItem = PlayItem(url: segment.fileURL) },
+                    onShare:  {
+                        let items = [segment.fileURL]
+                        let ctrl  = UIActivityViewController(
+                            activityItems: items,
+                            applicationActivities: nil
+                        )
                         
-                        Spacer()
-                        
-                        StatusBadge(status: segment.transcription?.status ?? .pending)
+                        UIApplication.shared.topMostController?
+                            .present(ctrl, animated: true)
                     }
-                    
-                    if let text = segment.transcription?.text, !text.isEmpty {
-                        Text(text)
-                    } else {
-                        BouncyDotView()
-                    }
-                }
-                .listRowInsets(.init(top: 8, leading: 12, bottom: 8, trailing: 12))
-                .contextMenu {
-                    Button("Play Segment") {
-                        playingItem = PlayItem(url: segment.fileURL)
-                    }
-                    
-                    ShareLink(item: segment.fileURL) {
-                        Label("Share", systemImage: "square.and.arrow.up")
-                    }
-                }
+                )
             }
-        }
-    }
-}
-
-private struct StatusBadge: View {
-    let status: Transcription.Status
-    
-    var body: some View {
-        Label(status.name, systemImage: icon)
-            .labelStyle(.iconOnly)
-            .foregroundStyle(color)
-            .accessibilityLabel(status.name)
-    }
-    
-    private var icon: String {
-        switch status {
-        case .done:             
-            return "checkmark.circle.fill"
-        case .processing, .pending: 
-            return "clock.fill"
-        case .failed:           
-            return "xmark.octagon.fill"
-        }
-    }
-    
-    private var color: Color {
-        switch status {
-        case .done:
-            return .green
-        case .processing, .pending:
-            return .orange
-        case .failed:
-            return .red
         }
     }
 }
@@ -113,5 +67,30 @@ private struct StatusBadge: View {
     
     NavigationStack {
         SessionDetailView(session: session)
+    }
+}
+
+import UIKit
+
+extension UIApplication {
+    /// Walks the window hierarchy to find the foremost view controller.
+    var topMostController: UIViewController? {
+        guard let root = windows.first(where: \.isKeyWindow)?.rootViewController else {
+            return nil
+        }
+        return findTop(from: root)
+    }
+
+    private func findTop(from vc: UIViewController) -> UIViewController {
+        if let nav = vc as? UINavigationController {
+            return findTop(from: nav.visibleViewController ?? nav)
+        }
+        if let tab = vc as? UITabBarController {
+            return findTop(from: tab.selectedViewController ?? tab)
+        }
+        if let presented = vc.presentedViewController {
+            return findTop(from: presented)
+        }
+        return vc
     }
 }
