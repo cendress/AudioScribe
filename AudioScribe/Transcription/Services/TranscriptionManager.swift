@@ -53,7 +53,17 @@ final class TranscriptionManager {
             let text = try await transcribeWithRetry(segment: segment)
             try await update(segment: segment, text: text, status: .done)
             consecutiveFailures = 0
-        } catch {
+        } catch
+            let err as TranscriptionError where err == .insufficientQuota {
+                // Immediate fallback on quota exceeded
+                do {
+                    let localText = try await local.transcribe(segment: segment)
+                    try await update(segment: segment, text: localText, status: .done)
+                } catch {
+                    print("Local transcription fallback failed: \(error)")
+                    try? await update(segment: segment, text: "", status: .failed)
+                }
+            } catch {
             consecutiveFailures += 1
             let newStatus: Transcription.Status =
               (consecutiveFailures >= 5) ? .failed : .processing

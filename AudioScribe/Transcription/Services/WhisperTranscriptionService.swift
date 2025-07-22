@@ -10,6 +10,7 @@ import Foundation
 enum TranscriptionError: Error {
     case missingAPIKey
     case invalidResponse
+    case insufficientQuota
 }
 
 struct WhisperTranscriptionService: TranscriptionService {
@@ -52,11 +53,17 @@ struct WhisperTranscriptionService: TranscriptionService {
 
         let (data, response) = try await URLSession.shared.data(for: request)
 
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+        guard let http = response as? HTTPURLResponse else {
+            throw TranscriptionError.invalidResponse
+        }
+
+        if http.statusCode == 429 {
+            throw TranscriptionError.insufficientQuota
+        } else if http.statusCode != 200 {
             throw TranscriptionError.invalidResponse
         }
 
         let decoded = try JSONDecoder().decode(OpenAIResponse.self, from: data)
-        return decoded.text              
+        return decoded.text
     }
 }
