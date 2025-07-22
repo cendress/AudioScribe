@@ -46,11 +46,6 @@ struct SessionListView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     List {
-                        // Invisible top of list anchor
-                        Color.clear
-                            .frame(height: 0)
-                            .id(topID)
-                        
                         ForEach(viewModel.displayed) { session in
                             SessionRowView(session: session)
                                 .accessibilityElement(children: .combine)
