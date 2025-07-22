@@ -54,7 +54,10 @@ struct RecorderView: View {
             
             Spacer()
             
-                if viewModel.uiState != .recording {
+            Group {
+                switch viewModel.uiState {
+                case .idle:
+                    // Record
                     CustomButtonView(imageName: "mic.fill", title: "Record Audio") {
                         withAnimation {
                             viewModel.toggleRecord()
@@ -62,16 +65,32 @@ struct RecorderView: View {
                         }
                     }
                     .transition(.opacity)
-                    .padding(.bottom, 32)
-                } else {
-                    CustomButtonView(imageName: "stop.fill", title: "Stop") {
-                        withAnimation {
-                            viewModel.stop()
+                    
+                case .recording, .paused:
+                    HStack(spacing: 24) {
+                        // Pause and resume
+                        CustomButtonView(
+                            imageName: viewModel.uiState == .recording ? "pause.fill" : "play.fill",
+                            title: viewModel.uiState == .recording ? "Pause" : "Resume"
+                        ) {
+                            withAnimation {
+                                viewModel.toggleRecord()
+                            }
+                        }
+                        
+                        // Stop
+                        CustomButtonView(imageName: "stop.fill", title: "Stop") {
+                            withAnimation {
+                                viewModel.stop()
+                            }
                         }
                     }
                     .transition(.opacity)
-                    .padding(.bottom, 32)
+                    
+                default:
+                    EmptyView()
                 }
+            }
         }
         .padding()
         .alert(isPresented: .constant(errorText != nil)) {

@@ -52,16 +52,21 @@ final class RecorderViewModel: ObservableObject {
     
     func toggleRecord() {
         switch uiState {
-            // Try to record if there's enough local storage space
-        case .idle, .paused:
+        case .idle:
             guard diskMonitor.hasEnoughSpace else {
                 uiState = .error("Not enough free space.")
                 return
             }
             try? recorder.start()
+
+        case .paused:
+            try? recorder.resume()
+
         case .recording:
             try? recorder.pause()
-        default: break
+
+        default:
+            break
         }
     }
     

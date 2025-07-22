@@ -24,6 +24,7 @@ struct SessionRowView: View {
                       .trimmingCharacters(in: .whitespacesAndNewlines)
                       ?? "No transcription available"
                 )
+                .lineLimit(1)
                 
                 Text(session.title ?? "Untitled")
                     .font(.headline)
