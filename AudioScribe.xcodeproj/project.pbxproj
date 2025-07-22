@@ -45,6 +45,7 @@
 		9DFA1D3C2E2F1091006AF1A4 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D3B2E2F1091006AF1A4 /* WaveformView.swift */; };
 		9DFA1D642E2FD176006AF1A4 /* CustomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D632E2FD176006AF1A4 /* CustomButtonView.swift */; };
 		9DFA1D662E300254006AF1A4 /* BlinkingDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D652E300254006AF1A4 /* BlinkingDotView.swift */; };
+		9DFA1D682E300B59006AF1A4 /* SegmentRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D672E300B59006AF1A4 /* SegmentRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		9DFA1D3B2E2F1091006AF1A4 /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		9DFA1D632E2FD176006AF1A4 /* CustomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonView.swift; sourceTree = "<group>"; };
 		9DFA1D652E300254006AF1A4 /* BlinkingDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlinkingDotView.swift; sourceTree = "<group>"; };
+		9DFA1D672E300B59006AF1A4 /* SegmentRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -344,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				9DD88AFE2E2EC80400169539 /* SessionDetailView.swift */,
+				9DFA1D672E300B59006AF1A4 /* SegmentRowView.swift */,
 				9DD88B002E2ED03800169539 /* SessionDetailViewModel.swift */,
 			);
 			path = SessionDetail;
@@ -511,6 +514,7 @@
 				9DB57F542E2D433900E96097 /* RecordingSession.swift in Sources */,
 				9DB57FA02E2EA60200E96097 /* SessionListViewModel.swift in Sources */,
 				9DFA1D332E2EFDA9006AF1A4 /* PlayItem.swift in Sources */,
+				9DFA1D682E300B59006AF1A4 /* SegmentRowView.swift in Sources */,
 				9DB57F502E2D394700E96097 /* AudioSessionManager.swift in Sources */,
 				9DB57F7E2E2D904700E96097 /* KeychainStore.swift in Sources */,
 				9DB57F752E2D798B00E96097 /* TranscriptionManager.swift in Sources */,
