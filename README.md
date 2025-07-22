@@ -43,26 +43,6 @@ Runs happily in the background, survives interruptions, and shows a live audio w
 
 ---
 
-## Project Layout (top level)
-
-AudioScribeApp.swift – entry 
-RootView.swift – tab container
-
-Audio/ – AVFoundation recorder, session manager
-
-Persistence/ – SwiftData models & container
-UI/ – SwiftUI screens and view models
-
-Helpers/ – small utilities (disk monitor, crypto, keychain)
-
-Tests/ – unit & UI tests
-
-docs/ – architecture, audio system, data model, issues
-
-Detailed diagrams live in *docs/ARCHITECTURE.md*.
-
----
-
 ## Design Notes
 
 * **Clean Architecture** keeps UI, domain protocols, and AVFoundation code separate.
