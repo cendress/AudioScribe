@@ -11,7 +11,6 @@ import SwiftUI
 struct SegmentRowView: View {
     let segment: Segment
     let onPlay: () -> Void
-    let onShare: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -34,8 +33,12 @@ struct SegmentRowView: View {
         .listRowInsets(.init(top: 8, leading: 12, bottom: 8, trailing: 12))
         .contextMenu {
             Button("Play Segment", action: onPlay)
-            Button("Share", action: onShare)
+            
+            ShareLink(item: segment.fileURL) {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
         }
+        
     }
 }
 
@@ -50,8 +53,7 @@ struct SegmentRowView: View {
     return List {
         SegmentRowView(
             segment: dummy,
-            onPlay: {},
-            onShare: {}
+            onPlay: {}
         )
     }
 }
