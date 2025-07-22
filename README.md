@@ -21,10 +21,15 @@ Runs happily in the background, survives interruptions, and shows a live audio w
 ---
 
 ## Screenshots
+ <img width="1290" height="2796" alt="Screenshot1" src="https://github.com/user-attachments/assets/e7c53d3f-f9ac-4813-8039-9c51a80f92f4" />
+ <img width="1290" height="2796" alt="Screenshot2" src="https://github.com/user-attachments/assets/9360ad76-b787-455f-9190-4a6166511ce3" />
+ <img width="1290" height="2796" alt="Screenshot3" src="https://github.com/user-attachments/assets/2760f61e-0de5-4091-a523-c6176399fa27" />
 
-| Recorder | Session List | Session Detail |
-|----------|--------------|----------------|
-|  |  |  |
+---
+
+## Demo
+
+https://github.com/user-attachments/assets/dd0ad67a-246a-49a7-90ad-93681c812bc6
 
 ---
 
