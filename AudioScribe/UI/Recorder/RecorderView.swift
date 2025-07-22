@@ -13,7 +13,9 @@ struct RecorderView: View {
     @SwiftUI.State private var isBlinking = false
     
     var body: some View {
-        VStack(spacing: 24) {
+        VStack {
+            Spacer()
+            
             ZStack {
                 WaveformView(level: $viewModel.level)
                     .opacity(viewModel.uiState == .recording ? 1 : 0)
@@ -28,26 +30,26 @@ struct RecorderView: View {
                 }
             }
             
-            HStack {
+            Spacer()
+            
                 if viewModel.uiState != .recording {
-                    CustomButtonView(imageName: "mic.fill", title: "Record Audio", action: {
+                    CustomButtonView(imageName: "mic.fill", title: "Record Audio") {
                         withAnimation {
                             viewModel.toggleRecord()
                             showPlaceholder = false
                         }
-                    })
+                    }
                     .transition(.opacity)
                 }
                 
                 if viewModel.uiState == .recording {
-                    CustomButtonView(imageName: "stop.fill", title: "Stop", action: {
+                    CustomButtonView(imageName: "stop.fill", title: "Stop") {
                         withAnimation {
                             viewModel.stop()
                         }
-                    })
+                    }
                     .transition(.opacity)
                 }
-            }
         }
         .padding()
         .alert(isPresented: .constant(errorText != nil)) {
@@ -56,24 +58,37 @@ struct RecorderView: View {
         .overlay(alignment: .topTrailing) {
             if viewModel.uiState == .recording {
                 HStack(spacing: 6) {
-                    Capsule()
+                    Circle()
                         .fill(Color.red)
                         .frame(width: 10, height: 10)
+                    // Restart blink each time recording state starts
                         .opacity(isBlinking ? 0 : 1)
-                        .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true), value: isBlinking)
                     
                     Text("Rec".uppercased())
-                        .font(.headline)
+                        .font(.subheadline)
                         .bold()
+                    
                 }
                 .padding(10)
                 .background(.ultraThinMaterial, in: .capsule)
-                .onAppear {
-                    isBlinking = true
-                }
+                .onAppear { isBlinking = true }
             }
         }
         .padding(.horizontal, 16)
+        .onChange(of: viewModel.uiState) { oldState, newState in
+            if newState == .recording {
+                isBlinking = false
+                withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
+                    isBlinking = true
+                }
+            }
+            
+            if newState == .idle {
+                withAnimation {
+                    showPlaceholder = true
+                }
+            }
+        }
     }
     
     // Helper methods
