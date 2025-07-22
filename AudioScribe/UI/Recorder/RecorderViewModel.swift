@@ -15,7 +15,7 @@ final class RecorderViewModel: ObservableObject {
     @Published var progress: Double = 0
     
     @Published var level: Float = 0 {
-        didSet { level = 0.15 * oldValue + 0.85 * level } 
+        didSet { level = 0.15 * oldValue + 0.85 * level }
     }
     
     // Public state for the view (tells the UI what to display)
@@ -57,14 +57,23 @@ final class RecorderViewModel: ObservableObject {
                 uiState = .error("Not enough free space.")
                 return
             }
-            try? recorder.start()
-
+            
+            Task { @MainActor in
+                await DIContainer.shared.recordingCoordinator.beginSession()
+                
+                do {
+                    try recorder.start()
+                } catch {
+                    uiState = .error(error.localizedDescription)
+                }
+            }
+            
         case .paused:
             try? recorder.resume()
-
+            
         case .recording:
             try? recorder.pause()
-
+            
         default:
             break
         }
@@ -73,14 +82,14 @@ final class RecorderViewModel: ObservableObject {
     func stop() {
         uiState = .stopping
         try? recorder.stop()
-
+        
         guard
-          let fileURL = (recorder as? AVAudioEngineRecorder)?.lastFileURL,
-          let duration = (recorder as? AVAudioEngineRecorder)?.lastDuration
+            let fileURL = (recorder as? AVAudioEngineRecorder)?.lastFileURL,
+            let duration = (recorder as? AVAudioEngineRecorder)?.lastDuration
         else {
-          return
+            return
         }
-
+        
         Task {
             await DIContainer.shared.recordingCoordinator.persistSegment(
                 fileURL: fileURL,

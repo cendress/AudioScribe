@@ -27,31 +27,51 @@ struct SessionListView: View {
     // Separated view body for the compiler
     private var sessionList: some View {
         ScrollViewReader { proxy in
-            List {
-                // Invisible top‐of‐list anchor
-                Color.clear
-                    .frame(height: 0)
-                    .id(topID)
-                
-                ForEach(viewModel.displayed) { session in
-                    SessionRowView(session: session)
-                        .accessibilityElement(children: .combine)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            path.append(session)
+            Group {
+                if viewModel.displayed.isEmpty {
+                    // Placeholder when there are no sessions
+                    VStack(spacing: 8) {
+                        Image(systemName: "waveform.circle")
+                            .font(.system(size: 50))
+                            .foregroundStyle(.secondary)
+                        Text("Nothing to see here…")
+                            .font(.title3)
+                            .bold()
+                        Text("Record an audio session and it’ll show up here.")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    List {
+                        // Invisible top of list anchor
+                        Color.clear
+                            .frame(height: 0)
+                            .id(topID)
+                        
+                        ForEach(viewModel.displayed) { session in
+                            SessionRowView(session: session)
+                                .accessibilityElement(children: .combine)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    path.append(session)
+                                }
+                            // Technique allows for infinite scrolling
+                                .onAppear {
+                                    if session == viewModel.displayed.last {
+                                        Task { await viewModel.reload(reset: false) }
+                                    }
+                                }
                         }
-                    // Technique allows for infinite scrolling
-                        .onAppear {
-                            if session == viewModel.displayed.last {
-                                Task { await viewModel.reload(reset: false) }
-                            }
+                        
+                        // Spinner at bottom
+                        if viewModel.isRefreshing {
+                            ProgressView()
+                                .frame(maxWidth: .infinity, alignment: .center)
                         }
-                }
-                
-                // Spinner at bottom
-                if viewModel.isRefreshing {
-                    ProgressView()
-                        .frame(maxWidth: .infinity, alignment: .center)
+                    }
                 }
             }
             .navigationTitle("Sessions")
@@ -69,9 +89,9 @@ struct SessionListView: View {
                             ForEach([Transcription.Status.pending,
                                      .done,
                                      .failed], id: \.self) { status in
-                                Text(status.name)
-                                    .tag(Transcription.Status?.some(status))
-                            }
+                                         Text(status.name)
+                                             .tag(Transcription.Status?.some(status))
+                                     }
                         }
                         .onChange(of: viewModel.filterStatus) {
                             UISelectionFeedbackGenerator().selectionChanged()
