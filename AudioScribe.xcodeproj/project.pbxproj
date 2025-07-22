@@ -42,6 +42,7 @@
 		9DD88B012E2ED03800169539 /* SessionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD88B002E2ED03800169539 /* SessionDetailViewModel.swift */; };
 		9DFA1D332E2EFDA9006AF1A4 /* PlayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D322E2EFDA9006AF1A4 /* PlayItem.swift */; };
 		9DFA1D3A2E2F0E2C006AF1A4 /* AudioLevelSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D392E2F0E2C006AF1A4 /* AudioLevelSampler.swift */; };
+		9DFA1D3C2E2F1091006AF1A4 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D3B2E2F1091006AF1A4 /* WaveformView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		9DD88B002E2ED03800169539 /* SessionDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailViewModel.swift; sourceTree = "<group>"; };
 		9DFA1D322E2EFDA9006AF1A4 /* PlayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayItem.swift; sourceTree = "<group>"; };
 		9DFA1D392E2F0E2C006AF1A4 /* AudioLevelSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLevelSampler.swift; sourceTree = "<group>"; };
+		9DFA1D3B2E2F1091006AF1A4 /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -308,6 +310,7 @@
 			children = (
 				9DB57F652E2D66A000E96097 /* RecorderView.swift */,
 				9DB57F632E2D5F6800E96097 /* RecorderViewModel.swift */,
+				9DFA1D3B2E2F1091006AF1A4 /* WaveformView.swift */,
 			);
 			path = Recorder;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DFA1D3A2E2F0E2C006AF1A4 /* AudioLevelSampler.swift in Sources */,
+				9DFA1D3C2E2F1091006AF1A4 /* WaveformView.swift in Sources */,
 				9DB57F662E2D66A000E96097 /* RecorderView.swift in Sources */,
 				9DD88B012E2ED03800169539 /* SessionDetailViewModel.swift in Sources */,
 				9DB57F642E2D5F6800E96097 /* RecorderViewModel.swift in Sources */,
