@@ -19,9 +19,16 @@ struct SessionRowView: View {
                 Text(session.title ?? "Untitled")
                     .font(.headline)
                 
-                Text(session.createdAt, style: .date)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                Text(session.createdAt.formatted(.dateTime
+                    .month(.abbreviated)
+                    .day()
+                    .year()
+                    .hour()
+                    .minute()
+                )
+                )
+                .font(.caption)
+                .foregroundStyle(.secondary)
             }
             
             Spacer()
