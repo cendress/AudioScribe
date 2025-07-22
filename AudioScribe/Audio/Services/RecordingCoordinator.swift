@@ -20,6 +20,12 @@ actor RecordingCoordinator {
         let session = RecordingSession()
         context.insert(session)
         currentSession = session
+        
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save the session.")
+        }
     }
     
     func persistSegment(fileURL: URL, duration: TimeInterval) {
@@ -33,6 +39,12 @@ actor RecordingCoordinator {
         seg.duration = duration
         seg.startedAt = Date()
         session.segments.append(seg)
+        
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save the segment.")
+        }
         
         Task.detached {
             await TranscriptionManager.shared.enqueue(segment: seg)
