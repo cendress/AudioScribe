@@ -11,6 +11,8 @@ direction *inward* and *downward*: UI → ViewModels and Domain Protocols → In
 | **Scalability** | SwiftData schema already supports ≥ 1 k sessions / 10 k segments. |
 | **Observability** | Combine publishers push audio state & progress to the UI in real time. |
 
+---
+
 ## 2. Layer Responsibilities
 
 | Layer | Responsibilities | Depends On |
@@ -23,6 +25,8 @@ direction *inward* and *downward*: UI → ViewModels and Domain Protocols → In
 
 > **Rule of thumb:** A higher layer never imports a file located higher up the table.
 
+---
+
 ## 3. Key Architectural Decisions
 
 | ID | Decision | Rationale |
@@ -33,9 +37,13 @@ direction *inward* and *downward*: UI → ViewModels and Domain Protocols → In
 | **A‑04** | Dependency Injection via **`DIContainer` single‑ton** | Avoids heavyweight DI frameworks, unit tests can swap mocks with one line. |
 | **A‑05** | **WaveformView** uses `Canvas` + Accelerate RMS | 60 fps rendering with ~2–3 % CPU on A15; easy to theme. |
 
+---
+
 ## 4. Dependency Injection
 A lightweight singleton `DIContainer` wires concrete classes.  
 Because everything is protocol-first, swapping mocks for tests is one line.
+
+---
 
 ## 5. Data Flow Example (Record → UI)
 
@@ -46,6 +54,8 @@ Because everything is protocol-first, swapping mocks for tests is one line.
 5. **WaveformView** receives RMS values via `levelSampler.$rms` and redraws.
 
 Reverse flow (pause, stop) is symmetrical.
+
+---
 
 ## 6. Future Extensions
 * Network layer (Whisper STT) plugs via new protocol.
