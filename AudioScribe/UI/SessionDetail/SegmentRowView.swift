@@ -23,14 +23,23 @@ struct SegmentRowView: View {
                 StatusBadge(status: segment.transcription?.status ?? .pending)
             }
             
-            if let text = segment.transcription?.text, !text.isEmpty {
-                Text(text)
-            } else if segment.transcription?.status == .failed {
-                Text("Audio transcription failed. Please try again.")
-                    .foregroundStyle(.secondary)
-            } else {
-                BouncyDotView()
+            Group {
+                if let text = segment.transcription?.text, !text.isEmpty {
+                    Text(text)
+                        .font(.body)
+                        .opacity(1)
+                } else if segment.transcription?.status == .failed {
+                    Text("Audio transcription failed. Please try again.")
+                        .font(.body)
+                        .foregroundStyle(.secondary)
+                        .opacity(1)
+                } else {
+                    BouncyDotView()
+                        .opacity(1)
+                }
             }
+            .transition(.opacity)
+            .animation(.easeInOut, value: segment.transcription?.status)
         }
         .listRowInsets(.init(top: 8, leading: 12, bottom: 8, trailing: 12))
         .contextMenu {
