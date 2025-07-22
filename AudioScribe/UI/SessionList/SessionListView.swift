@@ -11,6 +11,8 @@ struct SessionListView: View {
     @StateObject private var viewModel = SessionListViewModel()
     @SwiftUI.State private var path = [RecordingSession]()
     @Namespace private var topID
+    @SwiftUI.State private var wasSearching = false
+    @SwiftUI.State private var searchTextBackup = ""
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -53,6 +55,7 @@ struct SessionListView: View {
                                 .accessibilityElement(children: .combine)
                                 .contentShape(Rectangle())
                                 .onTapGesture {
+                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                                     path.append(session)
                                 }
                                 .id(session.id)
@@ -75,7 +78,20 @@ struct SessionListView: View {
             .navigationTitle("Sessions")
             // Search bar
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer)
-            .onChange(of: topID) {}
+            .onChange(of: viewModel.searchText) { oldValue, newValue in
+                // User just tapped into the search bar
+                if !wasSearching && !newValue.isEmpty {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                }
+                // User just cancelled
+                if wasSearching && newValue.isEmpty {
+                    UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+                }
+                wasSearching = !newValue.isEmpty
+            }
+            .refreshable {
+                await viewModel.reload(reset: true)
+            }
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     // Filter menu for transcription type
