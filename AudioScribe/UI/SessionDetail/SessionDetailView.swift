@@ -50,7 +50,7 @@ struct SessionDetailView: View {
                     if let text = segment.transcription?.text, !text.isEmpty {
                         Text(text)
                     } else {
-                        BlinkingDotView()
+                        BouncyDotView()
                     }
                 }
                 .listRowInsets(.init(top: 8, leading: 12, bottom: 8, trailing: 12))

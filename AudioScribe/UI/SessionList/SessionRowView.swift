@@ -28,7 +28,7 @@ struct SessionRowView: View {
                         .font(.headline)
                         .lineLimit(2)
                 } else {
-                    BlinkingDotView()
+                    BouncyDotView()
                 }
                 
                 Text(session.createdAt.formatted(.dateTime

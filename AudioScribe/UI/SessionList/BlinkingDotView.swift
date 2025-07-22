@@ -7,25 +7,27 @@
 
 import SwiftUI
 
-struct BlinkingDotView: View {
-    @SwiftUI.State private var visible = false
+struct BouncyDotView: View {
+    @SwiftUI.State private var isExpanded = false
     
     var body: some View {
         Circle()
             .fill(Color.white)
             .frame(width: 20, height: 20)
-            .opacity(visible ? 1 : 0)
+            .scaleEffect(isExpanded ? 1.0 : 0.8)
             .onAppear {
+                // Bounce animation
                 withAnimation(
-                    .linear(duration: 0.6)
+                    .easeInOut(duration: 0.6)
                     .repeatForever(autoreverses: true)
                 ) {
-                    visible = true
+                    isExpanded = true
                 }
             }
     }
 }
 
 #Preview {
-    BlinkingDotView()
+    BouncyDotView()
+        .frame(width: 100, height: 100)
 }
