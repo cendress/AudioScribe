@@ -21,6 +21,7 @@ struct RootView: View {
                 .tabItem { Label("Sessions", systemImage: "list.bullet.rectangle") }
                 .tag(1)
         }
+        .tint(Color("LightBlueColor"))
         .onReceive(TranscriptionManager.shared.progressPublisher) {
             globalProgress = $0
         }
@@ -29,6 +30,9 @@ struct RootView: View {
                 ProgressView(value: globalProgress).progressViewStyle(.linear)
                     .frame(height: 2)
             }
+        }
+        .onChange(of: selection) {
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         }
     }
 }
