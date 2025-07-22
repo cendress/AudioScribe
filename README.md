@@ -2,10 +2,6 @@
 iOS voice‑notes recorder built with SwiftUI and SwiftData.  
 Runs happily in the background, survives interruptions, and shows a live audio waveform.
 
-<div align="center">
-  <img src="docs/assets/hero.gif" width="600" alt="App demo GIF">
-</div>
-
 ---
 
 ## Feature Highlights 
