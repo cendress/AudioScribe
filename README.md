@@ -77,7 +77,8 @@ This structure keeps dependencies flowing in one direction (UI → ViewModel →
 ## Roadmap
 
 * Noise‑reduction DSP and home‑screen widget  
-* iCloud / CloudKit sync  
+* iCloud / CloudKit sync
+* Further tests for full integration
 
 See full list in *docs/KNOWN_ISSUES.md*.
 
