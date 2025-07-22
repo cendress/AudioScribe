@@ -39,6 +39,7 @@ struct AudioScribeApp: App {
           Segment.self,
           Transcription.self
         ])
+        .preferredColorScheme(.dark)
     }
   }
 }
