@@ -14,6 +14,28 @@ struct RecorderView: View {
     
     var body: some View {
         VStack {
+            HStack {
+                Spacer()
+                
+                if viewModel.uiState == .recording {
+                    HStack(spacing: 6) {
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 10, height: 10)
+                        // Restart blink each time recording state starts
+                            .opacity(isBlinking ? 0 : 1)
+                        
+                        Text("Rec".uppercased())
+                            .font(.subheadline)
+                            .bold()
+                        
+                    }
+                    .padding(10)
+                    .background(.ultraThinMaterial, in: .capsule)
+                    .onAppear { isBlinking = true }
+                }
+            }
+            
             Spacer()
             
             ZStack {
@@ -26,7 +48,7 @@ struct RecorderView: View {
                         .font(.title3)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
-                        .padding()
+                        .padding(.top, 32)
                 }
             }
             
@@ -40,39 +62,20 @@ struct RecorderView: View {
                         }
                     }
                     .transition(.opacity)
-                }
-                
-                if viewModel.uiState == .recording {
+                    .padding(.bottom, 32)
+                } else {
                     CustomButtonView(imageName: "stop.fill", title: "Stop") {
                         withAnimation {
                             viewModel.stop()
                         }
                     }
                     .transition(.opacity)
+                    .padding(.bottom, 32)
                 }
         }
         .padding()
         .alert(isPresented: .constant(errorText != nil)) {
             Alert(title: Text("Error"), message: Text(errorText ?? ""), dismissButton: .default(Text("OK")))
-        }
-        .overlay(alignment: .topTrailing) {
-            if viewModel.uiState == .recording {
-                HStack(spacing: 6) {
-                    Circle()
-                        .fill(Color.red)
-                        .frame(width: 10, height: 10)
-                    // Restart blink each time recording state starts
-                        .opacity(isBlinking ? 0 : 1)
-                    
-                    Text("Rec".uppercased())
-                        .font(.subheadline)
-                        .bold()
-                    
-                }
-                .padding(10)
-                .background(.ultraThinMaterial, in: .capsule)
-                .onAppear { isBlinking = true }
-            }
         }
         .padding(.horizontal, 16)
         .onChange(of: viewModel.uiState) { oldState, newState in
