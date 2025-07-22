@@ -15,7 +15,7 @@ struct SessionRowView: View {
             Image(systemName: "waveform.circle.fill")
                 .font(.largeTitle)
             
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 8) {
                 if let text = session
                     .segments
                     .first?
