@@ -86,9 +86,7 @@ struct SessionListView: View {
                             Text("Any")
                                 .tag(Transcription.Status?.none)
                             
-                            ForEach([Transcription.Status.pending,
-                                     .done,
-                                     .failed], id: \.self) { status in
+                            ForEach([Transcription.Status.done], id: \.self) { status in
                                          Text(status.name)
                                              .tag(Transcription.Status?.some(status))
                                      }
