@@ -27,6 +27,10 @@ struct SessionRowView: View {
                     Text(text)
                         .font(.headline)
                         .lineLimit(2)
+                } else if session.segments.first?.transcription?.status == .failed {
+                    Text("Audio transcription failed. Please try again.")
+                        .font(.headline)
+                        .foregroundStyle(.secondary)
                 } else {
                     BouncyDotView()
                 }

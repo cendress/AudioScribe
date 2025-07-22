@@ -34,9 +34,11 @@ struct SessionListView: View {
                         Image(systemName: "waveform.circle")
                             .font(.system(size: 50))
                             .foregroundStyle(.secondary)
+                        
                         Text("Nothing to see here…")
                             .font(.title3)
                             .bold()
+                        
                         Text("Record an audio session and it’ll show up here.")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
@@ -81,7 +83,7 @@ struct SessionListView: View {
                             Text("Any")
                                 .tag(Transcription.Status?.none)
                             
-                            ForEach([Transcription.Status.done], id: \.self) { status in
+                            ForEach([Transcription.Status.done, .failed], id: \.self) { status in
                                          Text(status.name)
                                              .tag(Transcription.Status?.some(status))
                                      }

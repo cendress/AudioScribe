@@ -26,6 +26,9 @@ struct SegmentRowView: View {
             
             if let text = segment.transcription?.text, !text.isEmpty {
                 Text(text)
+            } else if segment.transcription?.status == .failed {
+                Text("Audio transcription failed. Please try again.")
+                    .foregroundStyle(.secondary)
             } else {
                 BouncyDotView()
             }
