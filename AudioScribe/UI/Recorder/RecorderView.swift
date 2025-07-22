@@ -11,60 +11,46 @@ struct RecorderView: View {
     @StateObject private var viewModel = RecorderViewModel()
     @SwiftUI.State private var showPlaceholder = true
     @SwiftUI.State private var isBlinking = false
-
+    
     var body: some View {
         VStack(spacing: 24) {
-            WaveformView(level: $viewModel.level)
-                .opacity(viewModel.uiState == .recording ? 1 : 0)
-                .animation(.easeInOut, value: viewModel.uiState)
-            
-            if showPlaceholder {
-                Text("Tap the record button to begin recording audio + transcription")
-                    .font(.title3)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding()
+            ZStack {
+                WaveformView(level: $viewModel.level)
+                    .opacity(viewModel.uiState == .recording ? 1 : 0)
+                    .animation(.easeInOut, value: viewModel.uiState)
+                
+                if showPlaceholder {
+                    Text("Tap the record button to begin recording audio")
+                        .font(.title3)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                }
             }
-
+            
             ProgressView(value: viewModel.level)
                 .progressViewStyle(.linear)
                 .padding(.horizontal)
                 .animation(.linear(duration: 0.2), value: viewModel.level)
                 .opacity(viewModel.uiState == .recording ? 1 : 0)
-
+            
             HStack {
                 if viewModel.uiState != .recording {
-                    Button(action: {
-                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    CustomButtonView(title: "Record Audio", action: {
                         withAnimation {
                             viewModel.toggleRecord()
                             showPlaceholder = false
                         }
-                    }) {
-                        Text("🎙️ Record")
-                            .padding()
-                            .foregroundStyle(Color.white)
-                            .font(.headline)
-                            .background(Color.blue)
-                            .cornerRadius(10)
-                    }
+                    })
                     .transition(.opacity)
                 }
-
+                
                 if viewModel.uiState == .recording {
-                    Button(action: {
-                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    CustomButtonView(title: "Stop", action: {
                         withAnimation {
                             viewModel.stop()
                         }
-                    }) {
-                        Text("🛑 Stop")
-                            .padding()
-                            .foregroundStyle(Color.white)
-                            .font(.headline)
-                            .background(Color.red)
-                            .cornerRadius(10)
-                    }
+                    })
                     .transition(.opacity)
                 }
             }
@@ -76,7 +62,7 @@ struct RecorderView: View {
         .overlay(alignment: .topLeading) {
             if viewModel.uiState == .recording {
                 HStack(spacing: 6) {
-                    Circle()
+                    Capsule()
                         .fill(Color.red)
                         .frame(width: 10, height: 10)
                         .opacity(isBlinking ? 0 : 1)
@@ -87,18 +73,19 @@ struct RecorderView: View {
                         .bold()
                 }
                 .padding(10)
-                .background(.ultraThinMaterial, in: Capsule())
+                .background(.ultraThinMaterial, in: .capsule)
                 .onAppear {
                     isBlinking = true
                 }
             }
         }
+        .padding(.horizontal, 16)
     }
-
+    
     private var errorText: String? {
         if case .error(let text) = viewModel.uiState { return text } else { return nil }
     }
-
+    
     private func title(for state: RecorderViewModel.RecordingUIState) -> String {
         switch state {
         case .idle: return "Ready"
