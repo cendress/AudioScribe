@@ -24,10 +24,8 @@ struct SessionRowView: View {
                       .trimmingCharacters(in: .whitespacesAndNewlines)
                       ?? "No transcription available"
                 )
-                .lineLimit(1)
-                
-                Text(session.title ?? "Untitled")
-                    .font(.headline)
+                .font(.headline)
+                .lineLimit(2)
                 
                 Text(session.createdAt.formatted(.dateTime
                     .month(.abbreviated)
@@ -35,18 +33,15 @@ struct SessionRowView: View {
                     .year()
                     .hour()
                     .minute()
-                )
-                )
+                ))
                 .font(.caption)
                 .foregroundStyle(.secondary)
             }
             
             Spacer()
             
-            Image(systemName: session.aggregateIcon)
-                .foregroundStyle(session.aggregateColor)
-            
             Image(systemName: "chevron.right")
+                .padding(.leading, 16)
         }
         .accessibilityLabel("\(session.accessibilityDescription)")
     }
