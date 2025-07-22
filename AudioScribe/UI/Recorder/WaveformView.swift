@@ -47,7 +47,7 @@ struct WaveformView: View {
 
     var body: some View {
         WaveformShape(level: CGFloat(level), barCount: barCount)
-            .foregroundStyle(Color.blue)
+            .foregroundStyle(Color("LightBlueColor"))
             .animation(.interpolatingSpring(mass: 0.3, stiffness: 120, damping: 15, initialVelocity: 0), value: level)
             .aspectRatio(1, contentMode: .fit)
             .accessibilityHidden(true)
