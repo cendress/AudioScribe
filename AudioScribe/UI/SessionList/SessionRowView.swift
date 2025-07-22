@@ -28,6 +28,8 @@ struct SessionRowView: View {
             
             Image(systemName: session.aggregateIcon)
                 .foregroundStyle(session.aggregateColor)
+            
+            Image(systemName: "chevron.right")
         }
         .accessibilityLabel("\(session.accessibilityDescription)")
     }
