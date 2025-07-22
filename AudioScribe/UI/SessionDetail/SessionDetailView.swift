@@ -22,11 +22,6 @@ struct SessionDetailView: View {
     var body: some View {
         sessionList
             .navigationTitle(session.title ?? "Session")
-            .toolbar {
-                Button(action: UIImpactFeedbackGenerator(style: .light).impactOccurred) {
-                    EditButton()
-                }
-            }
             .sheet(item: $playingItem) { item in
                 VideoPlayer(player: AVPlayer(url: item.url))
                     .ignoresSafeArea()
