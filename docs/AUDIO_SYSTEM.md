@@ -9,7 +9,7 @@ Using the engine (instead of `AVAudioRecorder`) lets us:
 
 ---
 
-## 1  Audio‑Session Setup
+## 1.  Audio‑Session Setup
 
 * **Category:** `.playAndRecord` — supports simultaneous playback/monitoring.  
 * **Options:** Bluetooth, AirPlay, and “default‑to‑speaker” for flexibility.  
@@ -18,7 +18,7 @@ Using the engine (instead of `AVAudioRecorder`) lets us:
 
 ---
 
-## 2  Handling Interruptions & Route Changes
+## 2.  Handling Interruptions & Route Changes
 
 | Scenario | What happens internally |
 |----------|-------------------------|
@@ -32,7 +32,7 @@ error message.
 
 ---
 
-## 3  Background Recording
+## 3.  Background Recording
 
 * The project enables **Background Audio** in *Signing & Capabilities*.
 * Once the screen locks, **AVAudioEngine** keeps running; iOS displays the red
@@ -42,7 +42,7 @@ error message.
 
 ---
 
-## 4  Live Level Meter
+## 4.  Live Level Meter
 
 A lightweight helper (**`AudioLevelSampler`**) attaches a **second tap** to the
 input node. Every ~50 ms it calculates Root‑Mean‑Square (RMS) amplitude with
@@ -53,7 +53,7 @@ Combine.
 
 ---
 
-## 5  Edge‑Case Protection
+## 5.  Edge‑Case Protection
 
 * **Disk space:** before starting, `DiskSpaceMonitor` ensures ≥ 25 MB free.
 * **Permission denied / revoked:** failure propagates back as `.error`, halting
@@ -63,7 +63,7 @@ Combine.
 
 ---
 
-## 6  Planned Audio Enhancements
+## 6.  Planned Audio Enhancements
 
 | Feature | Status |
 |---------|--------|
