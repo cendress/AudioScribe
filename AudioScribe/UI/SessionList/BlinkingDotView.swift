@@ -13,7 +13,7 @@ struct BlinkingDotView: View {
     var body: some View {
         Circle()
             .fill(Color.white)
-            .frame(width: 8, height: 8)
+            .frame(width: 20, height: 20)
             .opacity(visible ? 1 : 0)
             .onAppear {
                 withAnimation(

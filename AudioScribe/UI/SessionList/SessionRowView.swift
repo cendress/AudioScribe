@@ -16,16 +16,20 @@ struct SessionRowView: View {
                 .font(.largeTitle)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(session
-                      .segments
-                      .first?
-                      .transcription?
-                      .text
-                      .trimmingCharacters(in: .whitespacesAndNewlines)
-                      ?? "No transcription available"
-                )
-                .font(.headline)
-                .lineLimit(2)
+                if let text = session
+                    .segments
+                    .first?
+                    .transcription?
+                    .text
+                    .trimmingCharacters(in: .whitespacesAndNewlines),
+                   !text.isEmpty
+                {
+                    Text(text)
+                        .font(.headline)
+                        .lineLimit(2)
+                } else {
+                    BlinkingDotView()
+                }
                 
                 Text(session.createdAt.formatted(.dateTime
                     .month(.abbreviated)
