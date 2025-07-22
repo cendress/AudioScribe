@@ -70,3 +70,7 @@ Combine.
 | Configurable quality presets (sample rate / format) | Back‑logged |
 | Noise‑reduction DSP chain | Planned for a later milestone |
 | Multi‑input mixing (USB interface + built‑in mic) | In research |
+
+---
+
+*Last updated 22 Jul 2025*
