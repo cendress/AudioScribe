@@ -30,7 +30,7 @@ struct CustomButtonView: View {
             .cornerRadius(25)
             .overlay(
                 RoundedRectangle(cornerRadius: 25)
-                    .stroke(Color.gray, lineWidth: 2)
+                    .stroke(Color.secondary, lineWidth: 2)
             )
             .shadow(radius: 3, y: 3)
         }

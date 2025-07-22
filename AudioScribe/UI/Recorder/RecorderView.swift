@@ -28,12 +28,6 @@ struct RecorderView: View {
                 }
             }
             
-            ProgressView(value: viewModel.level)
-                .progressViewStyle(.linear)
-                .padding(.horizontal)
-                .animation(.linear(duration: 0.2), value: viewModel.level)
-                .opacity(viewModel.uiState == .recording ? 1 : 0)
-            
             HStack {
                 if viewModel.uiState != .recording {
                     CustomButtonView(imageName: "mic.fill", title: "Record Audio", action: {
@@ -68,8 +62,8 @@ struct RecorderView: View {
                         .opacity(isBlinking ? 0 : 1)
                         .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true), value: isBlinking)
                     
-                    Text("Recording")
-                        .font(.subheadline)
+                    Text("Rec".uppercased())
+                        .font(.headline)
                         .bold()
                 }
                 .padding(10)
@@ -82,6 +76,7 @@ struct RecorderView: View {
         .padding(.horizontal, 16)
     }
     
+    // Helper methods
     private var errorText: String? {
         if case .error(let text) = viewModel.uiState { return text } else { return nil }
     }
