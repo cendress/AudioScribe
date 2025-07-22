@@ -1,6 +1,6 @@
 # Data‑Model Design (SwiftData)
 
-## 1  Design Rationale
+## 1.  Design Rationale
 
 | Choice | Reason |
 |--------|--------|
@@ -11,7 +11,7 @@
 
 ---
 
-## 2  Performance Notes
+## 2.  Performance Notes
 
 * Unique IDs are indexed by SwiftData, giving `O(log n)` lookups.
 * List screens page data via `fetchLimit` + `fetchOffset`
@@ -19,7 +19,7 @@
 
 ---
 
-## 3  Migration Strategy
+## 3.  Migration Strategy
 
 Schema is still **version 0**; future changes will follow this plan:
 
