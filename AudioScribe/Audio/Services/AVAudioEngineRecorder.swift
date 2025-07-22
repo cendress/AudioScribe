@@ -53,7 +53,7 @@ class AVAudioEngineRecorder: NSObject, AudioRecordingService {
                 var sumsq: Float = 0
                 vDSP_svesq(channel, 1, &sumsq, vDSP_Length(buffer.frameLength))
                 let rms = sqrt(sumsq / Float(buffer.frameLength))
-                let scaled = min(rms * 10, 1)
+                let scaled = min(rms * 7, 1)
                 
                 DispatchQueue.main.async {
                     self.levelSubject.send(scaled)

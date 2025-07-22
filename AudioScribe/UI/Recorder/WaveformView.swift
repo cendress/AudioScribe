@@ -7,49 +7,50 @@
 
 import SwiftUI
 
-struct WaveformView: View {
-    @Binding var level: Float
-    let barCount: Int = 7
-    
-    var body: some View {
-        GeometryReader { geo in
-            let width  = geo.size.width
-            let height = geo.size.height
-            let midY = height / 2
-            let step = width / CGFloat(barCount)
-            
-            // Draw everything in a canvas then clip to circle
-            Canvas { context, size in
-                for i in 0..<barCount {
-                    let t = CGFloat(i) / CGFloat(barCount - 1)
-                    let xNorm = (t - 0.5) * 2
-                    let envelope = sqrt(max(0, 1 - xNorm*xNorm))
-                    let wobble = CGFloat.random(in: 0.9...1.1)
-                    let halfBar = envelope * CGFloat(level) * midY * wobble
-                    
-                    // Vertical centered rectangle
-                    let rect = CGRect(
-                        x: CGFloat(i) * step,
-                        y: midY - halfBar,
-                        width: step * 0.8,
-                        height: halfBar * 2
-                    )
-                    
-                    let radius = rect.width / 1
-                    var path = Path()
-                    path.addRoundedRect(
-                        in: rect,
-                        cornerSize: CGSize(width: radius, height: step * 0.3)
-                    )
-                    
-                    context.fill(path, with: .color(.accentColor))
-                }
-            }
-            .animation(.linear(duration: 0.05), value: level)
-            .clipShape(.circle)
+struct WaveformShape: Shape {
+    var level: CGFloat
+    let barCount: Int
+
+    var animatableData: CGFloat {
+        get { level }
+        set { level = newValue }
+    }
+
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let step = rect.width / CGFloat(barCount)
+        let midY = rect.midY
+
+        for i in 0..<barCount {
+            let t = CGFloat(i) / CGFloat(barCount - 1)
+            let envelope = sqrt(max(0, 1 - pow(t*2 - 1, 2)))
+            let halfBar = envelope * level * midY
+
+            let barRect = CGRect(
+                x: CGFloat(i) * step,
+                y: midY - halfBar,
+                width: step * 0.8,
+                height: halfBar * 2
+            )
+
+            path.addPath(Capsule().path(in: barRect))
         }
-        .aspectRatio(1, contentMode: .fit)
-        .accessibilityHidden(true)
+        
+        return path
+    }
+}
+
+struct WaveformView: View {
+    // Driven by the recorder
+    @Binding var level: Float
+    let barCount = 7
+
+    var body: some View {
+        WaveformShape(level: CGFloat(level), barCount: barCount)
+            .foregroundStyle(Color.blue)
+            .animation(.interpolatingSpring(mass: 0.3, stiffness: 120, damping: 15, initialVelocity: 0), value: level)
+            .aspectRatio(1, contentMode: .fit)
+            .accessibilityHidden(true)
     }
 }
 

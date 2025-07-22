@@ -12,8 +12,11 @@ import SwiftUI
 @MainActor
 final class RecorderViewModel: ObservableObject {
     @Published private(set) var uiState: RecordingUIState = .idle
-    @Published var level: Float = 0
     @Published var progress: Double = 0
+    
+    @Published var level: Float = 0 {
+        didSet { level = 0.15 * oldValue + 0.85 * level } 
+    }
     
     // Public state for the view (tells the UI what to display)
     enum RecordingUIState: Equatable {
