@@ -11,7 +11,7 @@ struct SessionListView: View {
     @StateObject private var viewModel = SessionListViewModel()
     @SwiftUI.State private var path = [RecordingSession]()
     @Namespace private var topID
-
+    
     var body: some View {
         NavigationStack(path: $path) {
             sessionList
@@ -23,7 +23,7 @@ struct SessionListView: View {
                 }
         }
     }
-
+    
     // Separated view body for the compiler
     private var sessionList: some View {
         ScrollViewReader { proxy in
@@ -32,7 +32,7 @@ struct SessionListView: View {
                 Color.clear
                     .frame(height: 0)
                     .id(topID)
-
+                
                 ForEach(viewModel.displayed) { session in
                     SessionRowView(session: session)
                         .accessibilityElement(children: .combine)
@@ -47,7 +47,7 @@ struct SessionListView: View {
                             }
                         }
                 }
-
+                
                 // Spinner at bottom
                 if viewModel.isRefreshing {
                     ProgressView()
@@ -71,12 +71,17 @@ struct SessionListView: View {
                                     .tag(Transcription.Status?.some(status))
                             }
                         }
+                        .onChange(of: viewModel.filterStatus) {
+                            UISelectionFeedbackGenerator().selectionChanged()
+                        }
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                     }
-
+                    
                     // Scroll to the top
                     Button {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                        
                         withAnimation {
                             proxy.scrollTo(topID, anchor: .top)
                         }
