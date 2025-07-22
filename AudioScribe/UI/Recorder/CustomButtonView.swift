@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomButtonView: View {
+    let imageName: String
     let title: String
     let action: () -> Void
     
@@ -16,22 +17,26 @@ struct CustomButtonView: View {
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
             action()
         }) {
-            Text(title)
-                .padding()
-                .foregroundStyle(Color.black)
-                .font(.headline)
-                .fontWeight(.semibold)
-                .background(Color.white)
-                .cornerRadius(25)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 25)
-                        .stroke(Color.gray, lineWidth: 1)
-                )
-                .shadow(radius: 3, y: 3)
+            HStack(spacing: 4) {
+                Image(systemName: imageName)
+                
+                Text(title)
+            }
+            .padding()
+            .foregroundStyle(Color.black)
+            .font(.headline)
+            .fontWeight(.semibold)
+            .background(Color.white)
+            .cornerRadius(25)
+            .overlay(
+                RoundedRectangle(cornerRadius: 25)
+                    .stroke(Color.gray, lineWidth: 2)
+            )
+            .shadow(radius: 3, y: 3)
         }
     }
 }
 
 #Preview {
-    CustomButtonView(title: "Record Audio", action: {})
+    CustomButtonView(imageName: "mic.fill", title: "Record Audio", action: {})
 }

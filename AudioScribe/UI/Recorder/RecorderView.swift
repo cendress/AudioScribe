@@ -36,7 +36,7 @@ struct RecorderView: View {
             
             HStack {
                 if viewModel.uiState != .recording {
-                    CustomButtonView(title: "Record Audio", action: {
+                    CustomButtonView(imageName: "mic.fill", title: "Record Audio", action: {
                         withAnimation {
                             viewModel.toggleRecord()
                             showPlaceholder = false
@@ -46,7 +46,7 @@ struct RecorderView: View {
                 }
                 
                 if viewModel.uiState == .recording {
-                    CustomButtonView(title: "Stop", action: {
+                    CustomButtonView(imageName: "stop.fill", title: "Stop", action: {
                         withAnimation {
                             viewModel.stop()
                         }
@@ -59,7 +59,7 @@ struct RecorderView: View {
         .alert(isPresented: .constant(errorText != nil)) {
             Alert(title: Text("Error"), message: Text(errorText ?? ""), dismissButton: .default(Text("OK")))
         }
-        .overlay(alignment: .topLeading) {
+        .overlay(alignment: .topTrailing) {
             if viewModel.uiState == .recording {
                 HStack(spacing: 6) {
                     Capsule()
