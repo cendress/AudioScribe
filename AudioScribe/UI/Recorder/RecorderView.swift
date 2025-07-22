@@ -26,10 +26,6 @@ struct RecorderView: View {
                     .padding()
             }
 
-            Text(title(for: viewModel.uiState))
-                .font(.largeTitle)
-                .fontWeight(.bold)
-
             ProgressView(value: viewModel.level)
                 .progressViewStyle(.linear)
                 .padding(.horizontal)
