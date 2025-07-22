@@ -55,6 +55,7 @@ struct SessionListView: View {
                                 .onTapGesture {
                                     path.append(session)
                                 }
+                                .id(session.id)
                             // Technique allows for infinite scrolling
                                 .onAppear {
                                     if session == viewModel.displayed.last {
@@ -84,9 +85,9 @@ struct SessionListView: View {
                                 .tag(Transcription.Status?.none)
                             
                             ForEach([Transcription.Status.done, .failed], id: \.self) { status in
-                                         Text(status.name)
-                                             .tag(Transcription.Status?.some(status))
-                                     }
+                                Text(status.name)
+                                    .tag(Transcription.Status?.some(status))
+                            }
                         }
                         .onChange(of: viewModel.filterStatus) {
                             UISelectionFeedbackGenerator().selectionChanged()
@@ -94,13 +95,15 @@ struct SessionListView: View {
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                     }
+                    .accessibilityLabel("Filter transcription status")
                     
                     // Scroll to the top
                     Button {
                         UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                        
-                        withAnimation {
-                            proxy.scrollTo(topID, anchor: .top)
+                        if let firstID = viewModel.displayed.first?.id {
+                            withAnimation {
+                                proxy.scrollTo(firstID, anchor: .top)
+                            }
                         }
                     } label: {
                         Image(systemName: "arrow.up.to.line")
