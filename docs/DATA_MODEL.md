@@ -27,3 +27,7 @@ Schema is still **version 0**; future changes will follow this plan:
 2. Breaking changes → bump `ModelConfiguration` version and run a
    lightweight migration that keeps audio files untouched
    and rewrites metadata.
+
+   ---
+
+*Last updated 22 Jul 2025*
