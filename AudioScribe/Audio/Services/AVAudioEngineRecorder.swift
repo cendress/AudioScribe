@@ -15,7 +15,7 @@ class AVAudioEngineRecorder: NSObject, AudioRecordingService {
     
     // Whats needed to actually record
     private let sessionManager: AudioSessionManaging
-    private let engine = AVAudioEngine()
+    let engine = AVAudioEngine()
     var file: AVAudioFile?
     
     private var cancellables = Set<AnyCancellable>()

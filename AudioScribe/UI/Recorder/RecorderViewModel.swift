@@ -12,9 +12,9 @@ import SwiftUI
 @MainActor
 final class RecorderViewModel: ObservableObject {
     @Published private(set) var uiState: RecordingUIState = .idle
-    @Published private(set) var level: Float = 0
+    @Published var level: Float = 0
     @Published var progress: Double = 0
-    
+
     // Public state for the view (tells the UI what to display)
     enum RecordingUIState: Equatable {
         case idle
@@ -30,6 +30,7 @@ final class RecorderViewModel: ObservableObject {
     private var subs = Set<AnyCancellable>()
     // 25 MB
     private let diskMonitor  = DiskSpaceMonitor(minFreeBytes: 25 * 1_048_576)
+    private var levelSampler: AudioLevelSampler?
     
     init(recorder: AudioRecordingService? = nil) {
         self.recorder = recorder ?? DIContainer.shared.audioRecorder
@@ -38,6 +39,11 @@ final class RecorderViewModel: ObservableObject {
         TranscriptionManager.shared.progressPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: &$progress)
+        
+        if let engineRecorder = recorder as? AVAudioEngineRecorder {
+            levelSampler = AudioLevelSampler(engine: engineRecorder.engine)
+            levelSampler?.$rms.assign(to: &$level)
+        }
     }
     
     func toggleRecord() {
@@ -80,4 +86,3 @@ private extension RecorderViewModel {
             .store(in: &cancellables)
     }
 }
-

@@ -12,6 +12,9 @@ struct RecorderView: View {
     
     var body: some View {
         VStack(spacing: 24) {
+            WaveformView(level: $viewModel.level)
+                .opacity(viewModel.uiState == .recording ? 1 : 0)
+            
             Text(title(for: viewModel.uiState))
                 .font(.largeTitle)
                 .fontWeight(.bold)

@@ -309,8 +309,8 @@
 			isa = PBXGroup;
 			children = (
 				9DB57F652E2D66A000E96097 /* RecorderView.swift */,
-				9DB57F632E2D5F6800E96097 /* RecorderViewModel.swift */,
 				9DFA1D3B2E2F1091006AF1A4 /* WaveformView.swift */,
+				9DB57F632E2D5F6800E96097 /* RecorderViewModel.swift */,
 			);
 			path = Recorder;
 			sourceTree = "<group>";
