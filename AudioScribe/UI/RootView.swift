@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct RootView: View {
+    @SwiftUI.State private var selection = 0
     @SwiftUI.State private var globalProgress: Double = 0
     
     var body: some View {
-        VStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView(selection: $selection) {
+            NavigationStack { RecorderView() }
+                .tabItem { Label("Record", systemImage: "mic") }
+                .tag(0)
+            
+            NavigationStack { SessionListView() }
+                .tabItem { Label("Sessions", systemImage: "list.bullet.rectangle") }
+                .tag(1)
         }
         .onReceive(TranscriptionManager.shared.progressPublisher) {
             globalProgress = $0
