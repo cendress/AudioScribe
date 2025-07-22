@@ -68,6 +68,20 @@ final class RecorderViewModel: ObservableObject {
     func stop() {
         uiState = .stopping
         try? recorder.stop()
+
+        guard
+          let fileURL = (recorder as? AVAudioEngineRecorder)?.lastFileURL,
+          let duration = (recorder as? AVAudioEngineRecorder)?.lastDuration
+        else {
+          return
+        }
+
+        Task {
+            await DIContainer.shared.recordingCoordinator.persistSegment(
+                fileURL: fileURL,
+                duration: duration
+            )
+        }
     }
 }
 

@@ -22,6 +22,15 @@ class AVAudioEngineRecorder: NSObject, AudioRecordingService {
     let engine = AVAudioEngine()
     var file: AVAudioFile?
     
+    private var currentFileURL: URL?
+    private var recordingStartDate: Date?
+
+    var lastFileURL: URL? { currentFileURL }
+    var lastDuration: TimeInterval? {
+        guard let start = recordingStartDate else { return nil }
+        return Date().timeIntervalSince(start)
+    }
+    
     private var cancellables = Set<AnyCancellable>()
     
     init(sessionManager: AudioSessionManaging) {
@@ -41,6 +50,8 @@ class AVAudioEngineRecorder: NSObject, AudioRecordingService {
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         let url = directory.appendingPathComponent(UUID().uuidString)
                      .appendingPathExtension("caf")
+        currentFileURL = url
+        recordingStartDate = Date()
         let format = engine.inputNode.outputFormat(forBus: 0)
         file = try AVAudioFile(forWriting: url, settings: format.settings)
 
@@ -79,8 +90,8 @@ class AVAudioEngineRecorder: NSObject, AudioRecordingService {
         engine.inputNode.removeTap(onBus: 0)
         engine.stop()
         try sessionManager.deactivate()
-        file = nil
         stateSubject.send(.stopped)
+        file = nil
     }
 }
 
