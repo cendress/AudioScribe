@@ -9,6 +9,7 @@ import AVKit
 import SwiftUI
 
 struct SessionDetailView: View {
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: SessionDetailViewModel
     private let session: RecordingSession
     
@@ -20,6 +21,17 @@ struct SessionDetailView: View {
     var body: some View {
         sessionList
             .navigationTitle(session.title ?? "Session")
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                    }
+                }
+            }
     }
     
     private var sessionList: some View {
