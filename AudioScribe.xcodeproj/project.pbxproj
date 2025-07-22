@@ -40,7 +40,6 @@
 		9DD88AFC2E2EC23500169539 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD88AFB2E2EC23500169539 /* RootView.swift */; };
 		9DD88AFF2E2EC80400169539 /* SessionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD88AFE2E2EC80400169539 /* SessionDetailView.swift */; };
 		9DD88B012E2ED03800169539 /* SessionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD88B002E2ED03800169539 /* SessionDetailViewModel.swift */; };
-		9DFA1D332E2EFDA9006AF1A4 /* PlayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D322E2EFDA9006AF1A4 /* PlayItem.swift */; };
 		9DFA1D3A2E2F0E2C006AF1A4 /* AudioLevelSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D392E2F0E2C006AF1A4 /* AudioLevelSampler.swift */; };
 		9DFA1D3C2E2F1091006AF1A4 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D3B2E2F1091006AF1A4 /* WaveformView.swift */; };
 		9DFA1D642E2FD176006AF1A4 /* CustomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA1D632E2FD176006AF1A4 /* CustomButtonView.swift */; };
@@ -104,7 +103,6 @@
 		9DD88AFB2E2EC23500169539 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		9DD88AFE2E2EC80400169539 /* SessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailView.swift; sourceTree = "<group>"; };
 		9DD88B002E2ED03800169539 /* SessionDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailViewModel.swift; sourceTree = "<group>"; };
-		9DFA1D322E2EFDA9006AF1A4 /* PlayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayItem.swift; sourceTree = "<group>"; };
 		9DFA1D392E2F0E2C006AF1A4 /* AudioLevelSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLevelSampler.swift; sourceTree = "<group>"; };
 		9DFA1D3B2E2F1091006AF1A4 /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		9DFA1D632E2FD176006AF1A4 /* CustomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonView.swift; sourceTree = "<group>"; };
@@ -308,7 +306,6 @@
 			isa = PBXGroup;
 			children = (
 				9DB57F842E2DABC700E96097 /* OpenAIResponse.swift */,
-				9DFA1D322E2EFDA9006AF1A4 /* PlayItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -517,7 +514,6 @@
 				9DB57F522E2D3C4000E96097 /* AVAudioEngineRecorder.swift in Sources */,
 				9DB57F542E2D433900E96097 /* RecordingSession.swift in Sources */,
 				9DB57FA02E2EA60200E96097 /* SessionListViewModel.swift in Sources */,
-				9DFA1D332E2EFDA9006AF1A4 /* PlayItem.swift in Sources */,
 				9DFA1D682E300B59006AF1A4 /* SegmentRowView.swift in Sources */,
 				9DB57F502E2D394700E96097 /* AudioSessionManager.swift in Sources */,
 				9DB57F7E2E2D904700E96097 /* KeychainStore.swift in Sources */,

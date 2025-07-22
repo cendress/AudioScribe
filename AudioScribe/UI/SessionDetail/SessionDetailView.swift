@@ -12,8 +12,6 @@ struct SessionDetailView: View {
     @StateObject private var viewModel: SessionDetailViewModel
     private let session: RecordingSession
     
-    @SwiftUI.State private var playingItem: PlayItem?
-    
     init(session: RecordingSession) {
         self._viewModel = StateObject(wrappedValue: SessionDetailViewModel(session: session))
         self.session = session
@@ -22,18 +20,12 @@ struct SessionDetailView: View {
     var body: some View {
         sessionList
             .navigationTitle(session.title ?? "Session")
-            .sheet(item: $playingItem) { item in
-                VideoPlayer(player: AVPlayer(url: item.url))
-                    .ignoresSafeArea()
-            }
     }
     
     private var sessionList: some View {
         List {
             ForEach(viewModel.segments) { segment in
-                SegmentRowView(segment: segment) {
-                  playingItem = PlayItem(url: segment.fileURL)
-                }
+                SegmentRowView(segment: segment)
             }
         }
     }
