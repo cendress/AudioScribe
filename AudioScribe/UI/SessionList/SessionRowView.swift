@@ -16,6 +16,15 @@ struct SessionRowView: View {
                 .font(.largeTitle)
             
             VStack(alignment: .leading, spacing: 4) {
+                Text(session
+                      .segments
+                      .first?
+                      .transcription?
+                      .text
+                      .trimmingCharacters(in: .whitespacesAndNewlines)
+                      ?? "No transcription available"
+                )
+                
                 Text(session.title ?? "Untitled")
                     .font(.headline)
                 
